@@ -15,13 +15,13 @@ except:
 	sys.exit('Wrong arguments')
 
 baseURL = "http://atrium.mountofmordor.com"
-listURL = baseURL + "/api/v1/cs/listnote"
-readURL = baseURL + "/api/v1/cs/readnote"
-updateURL = baseURL + "/api/v1/cs/updatenote"
+listEndpoint = "/api/v1/cs/listnote"
+readEndpoint = "/api/v1/cs/readnote"
+updateEndpoint = "/api/v1/cs/updatenote"
 
 # if the note_name is list then send the list note request.
 if note_name == 'list':
-	r = requests.get(url = listURL)
+	r = requests.get(url = baseURL + listEndpoint)
 	resp = r.json()
 	note_list = resp['data']
 	result = note_list.split('_')
@@ -36,7 +36,7 @@ PARAMS = {'noteName':note_name, 'noteFlag': note_flag}
 # TLS
 # r = requests.get(url = URL, verify="ssl/server_ngrok.crt")
 
-r = requests.get(url = readURL, params=PARAMS)
+r = requests.get(url = baseURL + readEndpoint, params=PARAMS)
   
 # extracting data in json format
 resp = r.json()
@@ -78,7 +78,7 @@ if initial_hash != final_hash:
 
 		DATA = {'content':_content, 'passHash': password_hash}
 
-		r = requests.post(url = updateURL, params=PARAMS, data=DATA)
+		r = requests.post(url = baseURL + updateEndpoint, params=PARAMS, data=DATA)
 		
 		if r.json().get('status') == 200:
 			print("The note has been updated.")
