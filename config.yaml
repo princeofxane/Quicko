@@ -1,0 +1,7 @@
+prod:
+  base_url: 
+  endpoints:
+    read_note:
+    update_note:
+    list_notes:
+test:
