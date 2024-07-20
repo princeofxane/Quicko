@@ -39,8 +39,7 @@ new_content = util.read_file_contend()
 # Lil wait for aesthetics. '(0_0)'
 time.sleep(0.2)
 
-print("The note has been changed\n")
-print("Enter admin password")
+print("The note has been changed\nEnter admin password")
 
 try:
 	password = getpass.getpass()
