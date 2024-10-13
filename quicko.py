@@ -9,13 +9,13 @@ request = r.Request(env='prod')
 
 if len(sys.argv) == 2 and sys.argv[1] == 'list':
 	request.list_notes()
-	sys.exit()
+	quit()
 
 try:
 	note_name = sys.argv[1]
 	note_flag = sys.argv[2]
 except:
-	sys.exit('Wrong arguments')
+	quit('Wrong arguments')
 
 note = request.get_notes(note_name, note_flag)
 
@@ -31,7 +31,7 @@ new_sha = util.sha(current_note)
 # exit if no file changes.
 if old_sha == new_sha:
 	util.delete_file_cache()
-	sys.exit()
+	quit()
 
 # proceed to update if any changes.
 new_content = util.read_file_contend()
@@ -44,7 +44,7 @@ print("The note has been changed\nEnter admin password")
 try:
 	password = getpass.getpass()
 except:
-	sys.exit('\nProvide a valid password!')
+	quit('\nProvide a valid password!')
 
 password_hash = util.sha(password.encode('utf-8'))
 
