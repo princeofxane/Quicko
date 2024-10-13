@@ -1,6 +1,7 @@
 import yaml
 import os
 import getpass
+import sys
 
 
 # default_config is the config that gets loaded if config file not provided.
@@ -35,7 +36,7 @@ def open_file():
                 data = yaml.safe_load(file)
                 return data
         except yaml.YAMLError as e:
-            quit(f'some execption occured: {e}')
+            sys.exit(f'some execption occured: {e}')
             
     return default_config
     
@@ -58,7 +59,7 @@ class Config:
         # store base_url
         bUrl = self.data[self.env]['base_url']
         if bUrl == "":
-            quit('empty value for base_url')
+            sys.exit('empty value for base_url')
         self.base_url = bUrl
         
     def base_url(self):
@@ -67,17 +68,17 @@ class Config:
     def read_endpoint(self):
         endpoint = self.data[self.env]['endpoints']['read']
         if endpoint == "":
-            quit('empty value for read endpoint')
+            sys.exit('empty value for read endpoint')
         return self.base_url + endpoint
 
     def update_endpoint(self):
         endpoint = self.data[self.env]['endpoints']['update']
         if endpoint == "":
-            quit('empty value for update endpoint')
+            sys.exit('empty value for update endpoint')
         return self.base_url + endpoint
 
     def list_endpoint(self):
         endpoint = self.data[self.env]['endpoints']['list']
         if endpoint == "":
-            quit('empty value list endpoint')
+            sys.exit('empty value list endpoint')
         return self.base_url + endpoint
