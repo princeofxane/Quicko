@@ -1,15 +1,13 @@
 import requests
-import sys
 import internal.config as cfg
 
 class Request:
     config = ''
 
     def __init__(self, env):
-        if env != 'prod':
-            print('this')
+        # quit if env is invalid.
         if env == '' or env not in ('prod', 'test'):
-            sys.exit('env value is invalid or empty')
+            quit('env value is invalid or empty')
         
         self.config = cfg.Config(env)
 
@@ -20,7 +18,7 @@ class Request:
         try:
             resp = requests.get(self.config.read_endpoint(), params=req_param)
         except:
-            sys.exit('request failed')
+            quit('request failed')
 
         resp = resp.json()
         data = resp.get('data').encode('utf-8')
@@ -33,7 +31,7 @@ class Request:
         try:
             resp = requests.post(self.config.update_endpoint(), params=req_param, data=data)
         except:
-            sys.exit('request failed') 
+            quit('request failed') 
 
         if resp.json().get('status') == 200:
             print("The note has been updated.")
@@ -45,7 +43,7 @@ class Request:
         try:
             resp = requests.get(self.config.list_endpoint())
         except:
-            sys.exit('request failed') 
+            quit('request failed') 
 
         resp = resp.json()
 
@@ -54,4 +52,4 @@ class Request:
         sorted_array = sorted(result)
         for element in sorted_array:
             print(element.capitalize())
-        sys.exit()
+        quit()
