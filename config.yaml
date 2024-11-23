@@ -5,4 +5,8 @@ prod:
     update: "/api/v1/cs/updatenote"
     list: "/api/v1/cs/listnote"
 test:
-  base_url: "http://localhost:8080"
+  base_url: "http://localhost:8050"
+  endpoints:
+    read: "/api/v1/cs/readnote"
+    update: "/api/v1/cs/updatenote"
+    list: "/api/v1/cs/listnote"

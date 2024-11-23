@@ -1,11 +1,10 @@
 import getpass
-import os
 import sys
 import time
 import internal.request as r
 import utility.basic as util
 
-request = r.Request(env='prod')
+request = r.Request(env='test')
 
 if len(sys.argv) == 2 and sys.argv[1] == 'list':
 	request.list_notes()

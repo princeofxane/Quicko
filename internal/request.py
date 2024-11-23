@@ -1,6 +1,9 @@
 import requests
 import sys
 import internal.config as cfg
+import base64
+import json
+import http
 
 class Request:
     config = ''
@@ -21,10 +24,16 @@ class Request:
         except:
             sys.exit('request failed')
 
-        resp = resp.json()
-        data = resp.get('data').encode('utf-8')
+        if resp.status_code != requests.codes.ok:
+            sys.exit('getnote request failed')
 
-        return data
+        json_resp = resp.json()
+        data = json_resp.get('data')
+
+        # utf-8 encoded data
+        decoded_bytes = base64.b64decode(data)
+
+        return decoded_bytes
 
     def update_notes(self, note_name, note_flag, data):
         # constructt params
@@ -34,7 +43,7 @@ class Request:
         except:
             sys.exit('request failed') 
 
-        if resp.json().get('status') == 200:
+        if resp.status_code == requests.codes.ok:
             print("The note has been updated.")
         else:
             print("Wrong password!")
@@ -45,10 +54,17 @@ class Request:
             resp = requests.get(self.config.list_endpoint())
         except:
             sys.exit('request failed') 
+        
+        if resp.status_code != requests.codes.ok:
+            sys.exit('getlist request failed')
 
-        resp = resp.json()
+        json_resp = resp.json()
 
-        note_list = resp['data']
+        data = json_resp.get('data')
+
+        decoded_bytes = base64.b64decode(data)
+        note_list = decoded_bytes.decode("utf-8")
+
         result = note_list.split('_')
         sorted_array = sorted(result)
         for element in sorted_array:
