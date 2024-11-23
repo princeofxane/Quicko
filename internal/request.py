@@ -67,6 +67,6 @@ class Request:
 
         result = note_list.split('_')
         sorted_array = sorted(result)
-        for element in sorted_array:
-            print(element.capitalize())
+        for index, element in enumerate(sorted_array):
+            print(f'{index + 1}. {element.capitalize()}')
         sys.exit()

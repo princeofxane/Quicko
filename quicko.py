@@ -4,7 +4,9 @@ import time
 import internal.request as r
 import utility.basic as util
 
-request = r.Request(env='test')
+running_env = 'test'
+
+request = r.Request(env=running_env)
 
 if len(sys.argv) == 2 and sys.argv[1] == 'list':
 	request.list_notes()
