@@ -36,7 +36,6 @@ class Request:
         return decoded_bytes
 
     def update_notes(self, note_name, note_flag, data):
-        # constructt params
         req_param = {'noteName':note_name, 'noteFlag': note_flag}
         try:
             resp = requests.post(self.config.update_endpoint(), params=req_param, data=data)
@@ -49,7 +48,6 @@ class Request:
             print("Wrong password!")
 
     def list_notes(self):
-        # constructt params
         try:
             resp = requests.get(self.config.list_endpoint())
         except:
@@ -62,11 +60,10 @@ class Request:
 
         data = json_resp.get('data')
 
-        decoded_bytes = base64.b64decode(data)
-        note_list = decoded_bytes.decode("utf-8")
-
-        result = note_list.split('_')
+        result = data.split('_')
         sorted_array = sorted(result)
+        
+        print('available notes....\n')
         for index, element in enumerate(sorted_array):
             print(f'{index + 1}. {element.capitalize()}')
         sys.exit()

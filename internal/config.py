@@ -4,48 +4,31 @@ import getpass
 import sys
 
 
-# default_config is the config that gets loaded if config file not provided.
-default_config = {
-    'prod': {
-        'base_url': 'http://atrium.mountofmordor.com',
-        'endpoints': {
-            'read': '/api/v1/cs/readnote',
-            'update': '/api/v1/cs/updatenote',
-            'list': '/api/v1/cs/listnote'
-        }
-    },
-    'test': {
-        'base_url': 'http://localhost:8080'
-    }
-}
-    
-
-def open_file():
+def read_config():
     is_exist = False
 
-    username = getpass.getuser()
-    config_file_path = (f'/home/{username}/.config/quicko/config.yaml')
+    config_file_path = ('config.yaml')
 
     # check if the file exist.
     if os.path.exists(config_file_path):
         is_exist = True
+    else:
+        print('config file does not exist')
 
-    if is_exist:
-        try: 
-            with open(config_file_path, 'r') as file:
-                data = yaml.safe_load(file)
-                return data
-        except yaml.YAMLError as e:
-            sys.exit(f'some execption occured: {e}')
+    try: 
+        with open(config_file_path, 'r') as file:
+            config = yaml.safe_load(file)
+            return config
+    except yaml.YAMLError as e:
+        sys.exit(f'exception during reading config: {e}')
             
-    return default_config
     
     
 
 
 class Config:
     env = ''
-    data = ''
+    config = ''
     base_url = ''
 
     def __init__(self, env):
@@ -54,31 +37,31 @@ class Config:
         self.env = env
 
         # load config file to memory.
-        self.data = open_file()
+        self.config = read_config()
 
-        # store base_url
-        bUrl = self.data[self.env]['base_url']
-        if bUrl == "":
+        # store base url
+        url = self.config[self.env]['base_url']
+        if url == "":
             sys.exit('empty value for base_url')
-        self.base_url = bUrl
+        self.base_url = url
         
     def base_url(self):
         return self.base_url
 
     def read_endpoint(self):
-        endpoint = self.data[self.env]['endpoints']['read']
+        endpoint = self.config[self.env]['endpoints']['read']
         if endpoint == "":
             sys.exit('empty value for read endpoint')
         return self.base_url + endpoint
 
     def update_endpoint(self):
-        endpoint = self.data[self.env]['endpoints']['update']
+        endpoint = self.config[self.env]['endpoints']['update']
         if endpoint == "":
             sys.exit('empty value for update endpoint')
         return self.base_url + endpoint
 
     def list_endpoint(self):
-        endpoint = self.data[self.env]['endpoints']['list']
+        endpoint = self.config[self.env]['endpoints']['list']
         if endpoint == "":
             sys.exit('empty value list endpoint')
         return self.base_url + endpoint
