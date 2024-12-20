@@ -6,11 +6,14 @@ clean_up_build_fragments() {
 }
 
 replace_binary() {
-    FILE_PATH="./quicko"
+    OLD_FILE="~/bin/quicko"
+    NEW_FILE="./quicko"
 
-    # Check if the file exists
-    if [ -e "$FILE_PATH" ]; then
+    if [ -e "$OLD_FILE" ]; then
         rm ~/bin/quicko
+    fi
+    
+    if [ -e "$NEW_FILE" ]; then
         cp quicko ~/bin
     else
         echo "Error: The binary does not exists."
