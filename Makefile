@@ -5,10 +5,14 @@ clean:
 
 build:
 	pyinstaller --onefile quicko.py
-	./script.sh
+	./script.sh clean_up_build_fragments
 	$(MAKE) clean
 
+deposit:
+	./script.sh replace_binary
 
-
-
+help:
+	@echo "Targets:"
+	@echo "	build	Build the binary and clean up scraps."
+	@echo "	deposit	Replace the binary with the latest"
 	
