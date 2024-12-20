@@ -1,6 +1,5 @@
 # ReadMe
 
-## Description
 Quicko is a client to fetch notes from storage location and opens in vim.
 
 
