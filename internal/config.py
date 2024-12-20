@@ -7,13 +7,13 @@ import sys
 def read_config():
     is_exist = False
 
-    config_file_path = ('config.yaml')
+    username = getpass.getuser()
+    config_file_path = (f'/home/{username}/.config/quicko/config.yaml')
 
     # check if the file exist.
-    if os.path.exists(config_file_path):
-        is_exist = True
-    else:
-        print('config file does not exist')
+    if not os.path.exists(config_file_path):
+        print('config file does not exist in path: ', config_file_path)
+        sys.exit()
 
     try: 
         with open(config_file_path, 'r') as file:
@@ -21,10 +21,6 @@ def read_config():
             return config
     except yaml.YAMLError as e:
         sys.exit(f'exception during reading config: {e}')
-            
-    
-    
-
 
 class Config:
     env = ''

@@ -2,6 +2,12 @@
 
 Quicko is a client to fetch notes from storage location and opens in vim.
 
+## Config file.
+Place the config file at below location for quicko to pick it up.
+We do it because the binary does not support to have a config file embedded so far. 
+
+* location: `/home/{user}/.config/quicko/config.yaml`
+
 
 ## Print the list
 To list out the list of notes present use this command.
