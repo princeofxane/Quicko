@@ -12,7 +12,7 @@ request = r.Request(env=running_env)
 man = """
 You can try these options:\n
 Usage: 
-quicko [note] [-n/-d]
+quicko [notename] [-n|-d]
 
 List:
 quicko list: lists available notes\n
