@@ -8,15 +8,38 @@ running_env = 'test'
 
 request = r.Request(env=running_env)
 
+
+man = """
+You can try these options:\n
+Usage: 
+quicko [note] [-n/-d]
+
+List:
+quicko list: lists available notes\n
+
+Example:
+quicko python -n: gets python notes\n
+quicko python -d: gets python queries\n
+	"""
+
+
+
+if len(sys.argv) == 1:
+	print('provde valid arguments')
+	print(man)
+	sys.exit()
+
 if len(sys.argv) == 2 and sys.argv[1] == 'list':
 	request.list_notes()
 	sys.exit()
 
-try:
-	note_name = sys.argv[1]
-	note_flag = sys.argv[2]
-except:
-	sys.exit('Wrong arguments')
+if len(sys.argv) == 2 and sys.argv[1] == '--help':
+	print(man)
+	sys.exit()
+
+
+note_name = sys.argv[1]
+note_flag = sys.argv[2]
 
 note = request.get_notes(note_name, note_flag)
 
