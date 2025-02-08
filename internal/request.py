@@ -31,9 +31,8 @@ class Request:
         data = json_resp.get('data')
 
         # utf-8 encoded data
-        decoded_bytes = base64.b64decode(data)
-
-        return decoded_bytes
+        # decoded_bytes = base64.b64decode(data)
+        return data.encode('utf-8')
 
     def update_notes(self, note_name, note_flag, data):
         req_param = {'noteName':note_name, 'noteFlag': note_flag}
