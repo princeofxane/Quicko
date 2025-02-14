@@ -1,0 +1,1 @@
+1. It should not take any flag other that -n and -d. But it looks like it it does not check that.
