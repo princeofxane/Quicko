@@ -1,10 +1,11 @@
 import getpass
 import sys
 import time
+import json
 import internal.request as r
 import utility.basic as util
 
-running_env = 'prod'
+running_env = 'test'
 
 request = r.Request(env=running_env)
 
@@ -58,7 +59,7 @@ if old_sha == new_sha:
 	sys.exit()
 
 # proceed to update if any changes.
-new_content = util.read_file_contend()
+new_content = util.read_file_contend().decode('utf-8')
 
 # Lil wait for aesthetics. '(0_0)'
 time.sleep(0.2)
@@ -72,7 +73,7 @@ except:
 
 password_hash = util.sha(password.encode('utf-8'))
 
-req_data = {'content':new_content, 'passHash': password_hash}
+req_data = {'content':new_content, 'pass_hash': password_hash}
 
 request.update_notes(note_name, note_flag, req_data)
 

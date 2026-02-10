@@ -17,12 +17,15 @@ class Request:
 
     def get_notes(self, note_name, note_flag):
         # constructt params
-        req_param = {'noteName':note_name, 'noteFlag': note_flag}
+        req_param = {'note_name':note_name, 'note_flag': note_flag}
+
+        print("---------")
+        print(self.config.read_endpoint())
 
         try:
             resp = requests.get(self.config.read_endpoint(), params=req_param)
-        except:
-            sys.exit('request failed')
+        except Exception as e:
+            sys.exit(f'request failed: {e}')
 
         if resp.status_code != requests.codes.ok:
             sys.exit('getnote request failed')
@@ -35,11 +38,12 @@ class Request:
         return data.encode('utf-8')
 
     def update_notes(self, note_name, note_flag, data):
-        req_param = {'noteName':note_name, 'noteFlag': note_flag}
+        req_param = {'note_name':note_name, 'note_flag': note_flag}
+
         try:
-            resp = requests.post(self.config.update_endpoint(), params=req_param, data=data)
-        except:
-            sys.exit('request failed') 
+            resp = requests.patch(self.config.update_endpoint(), params=req_param, json=data)
+        except Exception as e:
+            sys.exit(f'request failed: {e}')
 
         if resp.status_code == requests.codes.ok:
             print("The note has been updated.")
@@ -49,9 +53,9 @@ class Request:
     def list_notes(self):
         try:
             resp = requests.get(self.config.list_endpoint())
-        except:
-            sys.exit('request failed') 
-        
+        except Exception as e:
+            sys.exit(f'request failed: {e}')
+
         if resp.status_code != requests.codes.ok:
             sys.exit('getlist request failed')
 
