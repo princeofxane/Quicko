@@ -1,11 +1,12 @@
 import getpass
 import sys
 import time
+import os
 import json
 import internal.request as r
 import utility.basic as util
 
-running_env = 'test'
+running_env = 'prod'
 
 request = r.Request(env=running_env)
 

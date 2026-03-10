@@ -10,7 +10,7 @@ class Request:
 
     def __init__(self, env):
         # quit if env is invalid.
-        if env == '' or env not in ('prod', 'test'):
+        if env == '' or env not in ('prod', 'dev'):
             sys.exit('env value is invalid or empty')
         
         self.config = cfg.Config(env)

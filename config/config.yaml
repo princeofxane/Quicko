@@ -1,0 +1,10 @@
+prod:
+  base_url: "http://cloudscribe.mountofmordor.com"
+  endpoints:
+    read: "/read"
+    update: "/update"
+test:
+  base_url: "http://localhost:8080"
+  endpoints:
+    read: "/read"
+    update: "/update"

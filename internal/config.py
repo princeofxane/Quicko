@@ -1,26 +1,35 @@
 import yaml
 import os
-import getpass
 import sys
 
 
+def get_config_path():
+    if getattr(sys, 'frozen', False):
+        # Running as PyInstaller bundle
+        base_path = sys._MEIPASS
+    else:
+        # Running as normal script
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        # go up one level since config.py is in internal/
+        base_path = os.path.dirname(base_path)
+
+    return os.path.join(base_path, 'config', 'config.yaml')
+
+
 def read_config():
-    is_exist = False
+    config_file_path = get_config_path()
 
-    username = getpass.getuser()
-    config_file_path = (f'/home/{username}/.config/quicko/config.yaml')
-
-    # check if the file exist.
     if not os.path.exists(config_file_path):
         print('config file does not exist in path: ', config_file_path)
         sys.exit()
 
-    try: 
+    try:
         with open(config_file_path, 'r') as file:
             config = yaml.safe_load(file)
             return config
     except yaml.YAMLError as e:
         sys.exit(f'exception during reading config: {e}')
+
 
 class Config:
     env = ''
@@ -28,21 +37,13 @@ class Config:
     base_url = ''
 
     def __init__(self, env):
-
-        # update the env value.
         self.env = env
-
-        # load config file to memory.
         self.config = read_config()
 
-        # store base url
         url = self.config[self.env]['base_url']
         if url == "":
             sys.exit('empty value for base_url')
         self.base_url = url
-        
-    def base_url(self):
-        return self.base_url
 
     def read_endpoint(self):
         endpoint = self.config[self.env]['endpoints']['read']
