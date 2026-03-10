@@ -19,9 +19,6 @@ class Request:
         # constructt params
         req_param = {'note_name':note_name, 'note_flag': note_flag}
 
-        print("---------")
-        print(self.config.read_endpoint())
-
         try:
             resp = requests.get(self.config.read_endpoint(), params=req_param)
         except Exception as e:
