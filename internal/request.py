@@ -15,6 +15,19 @@ class Request:
         
         self.config = cfg.Config(env)
 
+    def create_note(self, note_name):
+        req_param = {'note_name': note_name}
+
+        try:
+            resp = requests.post(self.config.create_endpoint(), params=req_param)
+        except Exception as e:
+            sys.exit(f'request failed: {e}')
+
+        if resp.status_code == requests.codes.ok:
+            print("The note has been created.")
+        else:
+            print("Note already exists!")
+
     def get_notes(self, note_name, note_flag):
         # constructt params
         req_param = {'note_name':note_name, 'note_flag': note_flag}
@@ -56,11 +69,8 @@ class Request:
         if resp.status_code != requests.codes.ok:
             sys.exit('getlist request failed')
 
-        json_resp = resp.json()
+        result = resp.json()
 
-        data = json_resp.get('data')
-
-        result = data.split('_')
         sorted_array = sorted(result)
         
         print('available notes....\n')

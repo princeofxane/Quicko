@@ -44,6 +44,12 @@ class Config:
         if url == "":
             sys.exit('empty value for base_url')
         self.base_url = url
+    
+    def create_endpoint(self):
+        endpoint = self.config[self.env]['endpoints']['create']
+        if endpoint == "":
+            sys.exit('empty value for create endpoint')
+        return self.base_url + endpoint
 
     def read_endpoint(self):
         endpoint = self.config[self.env]['endpoints']['read']

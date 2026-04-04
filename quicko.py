@@ -12,6 +12,13 @@ request = r.Request(env=running_env)
 
 
 man = """
+ ██████╗ ██╗   ██╗██╗ ██████╗██╗  ██╗ ██████╗ 
+██╔═══██╗██║   ██║██║██╔════╝██║ ██╔╝██╔═══██╗
+██║   ██║██║   ██║██║██║     █████╔╝ ██║   ██║
+██║▄▄ ██║██║   ██║██║██║     ██╔═██╗ ██║   ██║
+╚██████╔╝╚██████╔╝██║╚██████╗██║  ██╗╚██████╔╝
+ ╚══▀▀═╝  ╚═════╝ ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ 
+
 You can try these options:\n
 Usage: 
 quicko [notename] [-n|-d]
@@ -27,7 +34,6 @@ quicko python -d: gets python queries\n
 
 
 if len(sys.argv) == 1:
-	print('provde valid arguments')
 	print(man)
 	sys.exit()
 
@@ -42,6 +48,11 @@ if len(sys.argv) == 2 and sys.argv[1] == '--help':
 
 note_name = sys.argv[1]
 note_flag = sys.argv[2]
+
+# if not flag is -c 
+if note_flag == '-c':
+	request.create_note(note_name)
+	sys.exit()
 
 note = request.get_notes(note_name, note_flag)
 

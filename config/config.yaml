@@ -1,10 +1,14 @@
 prod:
-  base_url: "http://cloudscribe.mountofmordor.com"
+  base_url: http://cloudscribe.mountofmordor.com
   endpoints:
-    read: "/read"
-    update: "/update"
+    read: /read
+    update: /update
+    list: /list
+    create: /create
 test:
-  base_url: "http://localhost:8080"
+  base_url: http://localhost:8080
   endpoints:
-    read: "/read"
-    update: "/update"
+    read: /read
+    update: /update
+    list: /list
+    create: /create
