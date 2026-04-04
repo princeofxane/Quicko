@@ -18,17 +18,22 @@ man = """
 ██║▄▄ ██║██║   ██║██║██║     ██╔═██╗ ██║   ██║
 ╚██████╔╝╚██████╔╝██║╚██████╗██║  ██╗╚██████╔╝
  ╚══▀▀═╝  ╚═════╝ ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ 
+A simple CLI tool to access notes
 
 You can try these options:\n
 Usage: 
 quicko [notename] [-n|-d]
 
+Create:
+quicko [notename] -c: creates a note with the given name\n
+
 List:
 quicko list: lists available notes\n
 
 Example:
-quicko python -n: gets python notes\n
-quicko python -d: gets python queries\n
+quicko golang -c: creates a golang note
+quicko python -n: gets python notes
+quicko python -d: gets python queries
 	"""
 
 

@@ -1,6 +1,9 @@
 .PHONY: build clean
 
-build:
+install:
+	pip install -r requirements.txt
+
+build: install
 	pyinstaller --onefile --add-data "config/config.yaml:config" quicko.py
 	./script.sh clean_up_build_fragments
 	$(MAKE) clean
